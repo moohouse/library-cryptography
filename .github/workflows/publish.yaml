@@ -20,7 +20,7 @@ jobs:
       - name: Run Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -- scan
+          arguments: publish --scan
         env:
           REPOSITORY_USERNAME: ${{ secrets.REPOSITORY_USERNAME }}
           REPOSITORY_PACKAGE_TOKEN: ${{ secrets.REPOSITORY_PACKAGE_TOKEN }}
