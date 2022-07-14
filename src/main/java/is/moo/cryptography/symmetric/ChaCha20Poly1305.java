@@ -17,6 +17,10 @@ import java.security.SecureRandom;
 
 public class ChaCha20Poly1305 {
 
+    private ChaCha20Poly1305() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * JEP 329: ChaCha20 and Poly1305 Cryptographic Algorithms
      */
@@ -82,20 +86,5 @@ public class ChaCha20Poly1305 {
         return newNonce;
     }
 
-    private static String convertBytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte temp : bytes) {
-            result.append(String.format("%02x", temp));
-        }
-        return result.toString();
-    }
 
-    public static void main(String[] args) throws Exception {
-        String key = "DEUNGSIMANSIMCHADOLARONGSATE@EAT";
-        String plainString = "Moomoo~ Says moo!";
-        String enc = ChaCha20Poly1305.encrypt(plainString, key);
-        System.out.println(enc);
-        String dec = ChaCha20Poly1305.decrypt(enc, key);
-        System.out.println(dec);
-    }
 }
