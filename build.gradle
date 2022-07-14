@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'is.moo'
-version '1.0.2'
+version '1.0.3'
 
 repositories {
     mavenCentral()
@@ -36,5 +36,12 @@ publishing {
                 password = System.getenv("REPOSITORY_PACKAGE_TOKEN")
             }
         }
+    }
+}
+
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
     }
 }
