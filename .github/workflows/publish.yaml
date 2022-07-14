@@ -5,10 +5,6 @@ on:
       - 'master'
     tags:
       - 'v*'
-env:
-  FARM: farm.moo.is
-  REPO: moo
-  NAME: if-basic-auth
 jobs:
   build:
     name: Publish library to Github Package
@@ -21,7 +17,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Setup Gradle
+      - name: Run Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Execute Gradle publish
-        run: ./gradlew publish
+        with:
+          arguments: publish
+        env:
+          REPOSITORY_USERNAME: ${{ secrets.REPOSITORY_USERNAME }}
+          REPOSITORY_PACKAGE_TOKEN: ${{ secrets.REPOSITORY_PACKAGE_TOKEN }}
