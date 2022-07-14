@@ -3,16 +3,10 @@ package is.moo.cryptography.symmetric;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class ChaCha20Poly1305 {
@@ -30,19 +24,6 @@ public class ChaCha20Poly1305 {
      * The TLS ChaCha20 as defined in RFC7539
      */
     private static final int NONCE_LENGTH = 12;
-    private static final int MAC_LENGTH = 16;
-
-    /**
-     * Key Length
-     * - Key length for ChaCha20 must be 256 bits
-     */
-    private static final int KEY_POWER = 256;
-
-    private static SecretKey generateKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(CHACHA20);
-        keyGenerator.init(KEY_POWER, SecureRandom.getInstanceStrong());
-        return keyGenerator.generateKey();
-    }
 
     public static String encrypt(String text, String key) throws Exception {
         Cipher cipher = Cipher.getInstance(CRYPTOGRAPHIC_ALGORITHM);

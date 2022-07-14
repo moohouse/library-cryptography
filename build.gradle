@@ -1,9 +1,10 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 group 'is.moo'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 repositories {
     mavenCentral()
@@ -11,10 +12,29 @@ repositories {
 
 dependencies {
     implementation 'commons-codec:commons-codec:1.15'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${buildDir}/release")
+            name = "moohouse"
+            url = uri("https://maven.pkg.github.com/moohouse/library-cryptography")
+            credentials {
+                username = System.getenv("REPOSITORY_USERNAME")
+                password = System.getenv("REPOSITORY_PACKAGE_TOKEN")
+            }
+        }
+    }
 }
